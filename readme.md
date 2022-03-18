@@ -6,5 +6,5 @@
 -> User Interaction using keyboard \
 -> Math module \
 -> setInterval() Function \
--> Get Value from input box from html to js \
+-> Get Value from input box from html to js 
 
