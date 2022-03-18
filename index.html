@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+</head>
+
+<body>
+
+    <div style="display: flex;justify-content: center; margin-top: 30vh;">
+        <div>
+            <p style="display: flex; justify-content: center; font-family: sans-serif;font-weight: bold;font-size: 32px;"
+                id="questionDisplay"></p>
+            <input style="padding: 14px;font-size: 18px;" type="number" id="number"><br>
+            <button style="width: 100%;" onclick="checkAnswer()">Done</button>
+            <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-weight: bold;" id="score"></p>
+            <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: normal;" id="time">
+                Time: </p>
+        </div>
+    </div>
+
+    <script>
+        let number1 = 0;
+        let number2 = 0;
+        let score = 0;
+        let answer = 0;
+        time = 30;
+        function chooseARandomQuestion() {
+            number1 = Math.round(Math.random() * 30);
+            number2 = Math.round(Math.random() * 30);
+            answer = number1 + number2
+            document.getElementById("questionDisplay").innerHTML = `${number1} + ${number2} `;
+        }
+        function checkAnswer() {
+            let userGivenValue = (document.getElementById("number").value);
+            if (userGivenValue == answer) {
+                console.log("Woha");
+                incrementScore();
+                chooseARandomQuestion();
+                document.getElementById("number").value = "";
+            }
+        }
+        function incrementScore() {
+            score++;
+            document.getElementById("score").innerHTML = `Score: ${score}`;
+
+
+        }
+
+
+        document.addEventListener("keydown", function (e) {
+            let timeInterval = setInterval(function () {
+                time--;
+                document.getElementById("time").innerHTML = `Time: ${time}`;
+
+                if (time < 0) {
+                    clearInterval(timeInterval);
+                    document.getElementById("time").innerHTML = "Game Over";
+                    document.getElementById("number").disabled = "disabled";
+                    document.getElementsByTagName("button")[0].disabled = "disabled";
+                }
+            }, 1000)
+            if (e.keyCode == 13) {
+                checkAnswer();
+            }
+        })
+        function init() {
+            chooseARandomQuestion();
+            document.getElementById("score").innerHTML = `Score: ${score}`;
+            document.getElementById("time").innerHTML = `Time; ${time}`;
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            init();
+        })
+    </script>
+</body>
+
+</html>
